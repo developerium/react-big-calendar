@@ -1,5 +1,6 @@
 /* eslint no-fallthrough: off */
 import * as dates from 'date-arithmetic'
+import moment from 'moment-jalaali';
 
 export {
   milliseconds,
@@ -36,15 +37,19 @@ export function monthsInYear(year) {
 }
 
 export function firstVisibleDay(date, localizer) {
-  let firstOfMonth = dates.startOf(date, 'month')
+  const firstDayOfMonth = moment(date).startOf('jMonth');
+  const index = firstDayOfMonth.day();
 
-  return dates.startOf(firstOfMonth, 'week', localizer.startOfWeek())
+  // find last saturday, saturday = 6
+  return firstDayOfMonth.day(index >= 6 ? 6 : -1).toDate();
 }
 
 export function lastVisibleDay(date, localizer) {
-  let endOfMonth = dates.endOf(date, 'month')
+  const lastDayOfMonth = moment(date).add(1, 'month').startOf('jMonth').add(7, 'day');
+  const index = lastDayOfMonth.day();
 
-  return dates.endOf(endOfMonth, 'week', localizer.startOfWeek())
+  // find las friday, friday = 5
+  return lastDayOfMonth.day(index >= 5 ? 5 : -2).toDate();
 }
 
 export function visibleDays(date, localizer) {
