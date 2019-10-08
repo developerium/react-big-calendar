@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import clsx from 'clsx'
+import moment from 'moment-jalaali';
 
 import * as dates from './utils/dates'
 import { notify } from './utils/helpers'
@@ -49,6 +50,9 @@ class BackgroundCells extends React.Component {
           let selected = selecting && index >= startIdx && index <= endIdx
           const { className, style } = getters.dayProp(date)
 
+          const currentDateMonth = moment(currentDate).jMonth();
+          const nowDateMonth = moment(date).jMonth();
+
           return (
             <Wrapper key={index} value={date} range={range}>
               <div
@@ -59,8 +63,7 @@ class BackgroundCells extends React.Component {
                   selected && 'rbc-selected-cell',
                   dates.eq(date, current, 'day') && 'rbc-today',
                   currentDate &&
-                    dates.month(currentDate) !== dates.month(date) &&
-                    'rbc-off-range-bg'
+                  currentDateMonth !== nowDateMonth && 'rbc-off-range-bg'
                 )}
               />
             </Wrapper>
