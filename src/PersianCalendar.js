@@ -10,37 +10,6 @@ moment.loadPersian({ usePersianDigits: true });
 
 const localizer = momentLocalizer(moment);
 
-// https://github.com/intljusticemission/react-big-calendar/blob/master/src/Calendar.js#L564
-const formats = {
-  dateFormat: 'jD',
-  // weekdayFormat: 'jD',
-  monthHeaderFormat: 'jYYYY jMMMM',
-  agendaDateFormat: 'jYYYY-jMM-jDD',
-  dayHeaderFormat: 'dddd jDD jMMMM',
-  dayRangeHeaderFormat: function({ start, end }, lang, localizer) {
-    const preparedStart = moment(start).format(formats.dayHeaderFormat);
-    const preparedEnd = moment(end).format(formats.dayHeaderFormat);
-
-    return preparedStart + ' - ' + preparedEnd;
-  },
-};
-
-const messages = {
-  allDay: 'تمام روز',
-  previous: 'قبلی',
-  next: 'بعدی',
-  today: 'امروز',
-  month: 'ماه',
-  week: 'هفته',
-  day: 'روز',
-  date: 'تاریخ',
-  time: 'ساعت',
-  event: 'اتفاق',
-  noEventsInRange: 'هیچ موردی در این بازه یافت نشد',
-  showMore: function() {
-    return 'نمایش بیشتر';
-  },
-};
 
 class PersianCalendar extends PureComponent {
   state = {
@@ -88,32 +57,32 @@ class PersianCalendar extends PureComponent {
     this.setState({ viewDate: date });
   };
 
+  onSelectSlot = ({ slots, start, end }) => {
+    this.setState({
+      view: 'day',
+      viewDate: start,
+    });
+  };
+
   render() {
-    const { onSelectEvent, events, getEventProps, onSelectSlot, ...rest } = this.props;
     const { view, viewDate } = this.state;
 
     return (
       <Calendar
-        {...rest}
         rtl
         selectable
-        style={{ height: 800 }}
         views={['month', 'day']}
-        view={view}
-        date={viewDate}
-        formats={formats}
         culture="fa"
-        localizer={localizer}
-        messages={messages}
         startAccessor="start"
         endAccessor="end"
-        events={events}
         onView={this.onView}
         onNavigate={this.onNavigate}
         onRangeChange={this.onRangeChange}
-        onSelectEvent={onSelectEvent}
-        onSelectSlot={onSelectSlot}
-        eventPropGetter={getEventProps}
+        onSelectSlot={this.onSelectSlot}
+        {...this.props}
+        view={view}
+        date={viewDate}
+        localizer={localizer}
       />
     );
   }
@@ -125,6 +94,9 @@ PersianCalendar.propTypes = {
   getEventProps: PropTypes.func,
   onSelectSlot: PropTypes.func,
   events: PropTypes.array,
+  formats: PropTypes.object,
+  messages: PropTypes.object,
+  style: PropTypes.object,
 };
 
 PersianCalendar.defaultProps = {
@@ -142,12 +114,36 @@ PersianCalendar.defaultProps = {
       },
     };
   },
-  onSelectSlot: function({ slots, start, end }) {
-    this.setState({
-      view: 'day',
-      viewDate: start,
-    });
-  }
+  formats: {
+    dateFormat: 'jD',
+    // weekdayFormat: 'jD',
+    monthHeaderFormat: 'jYYYY jMMMM',
+    agendaDateFormat: 'jYYYY-jMM-jDD',
+    dayHeaderFormat: 'dddd jDD jMMMM',
+    dayRangeHeaderFormat: function({ start, end }, lang, localizer) {
+      const preparedStart = moment(start).format(this.dayHeaderFormat);
+      const preparedEnd = moment(end).format(this.dayHeaderFormat);
+
+      return preparedStart + ' - ' + preparedEnd;
+    },
+  },
+  messages: {
+    allDay: 'تمام روز',
+    previous: 'قبلی',
+    next: 'بعدی',
+    today: 'امروز',
+    month: 'ماه',
+    week: 'هفته',
+    day: 'روز',
+    date: 'تاریخ',
+    time: 'ساعت',
+    event: 'اتفاق',
+    noEventsInRange: 'هیچ موردی در این بازه یافت نشد',
+    showMore: function() {
+      return 'نمایش بیشتر';
+    },
+  },
+  style: { height: 800 },
 };
 
 export default PersianCalendar;
