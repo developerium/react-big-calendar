@@ -1,14 +1,14 @@
 {
-  "name": "react-big-calendar",
+  "name": "react-big-calendar-forked-persian",
   "version": "0.22.1",
   "description": "Calendar! with events",
   "author": {
-    "name": "Jason Quense",
-    "email": "monastic.panic@gmail.com"
+    "name": "Vahid Kheradmand",
+    "email": "kheradmand.v1@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/intljusticemission/react-big-calendar.git"
+    "url": "git+https://github.com/developerium/react-big-calendar-forked-persian.git"
   },
   "license": "MIT",
   "main": "lib/index.js",
@@ -145,9 +145,9 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "bugs": {
-    "url": "https://github.com/intljusticemission/react-big-calendar/issues"
+    "url": "https://github.com/developerium/react-big-calendar-forked-persian/issues"
   },
   "readme": "ERROR: No README data found!",
-  "homepage": "https://github.com/intljusticemission/react-big-calendar#readme",
+  "homepage": "https://github.com/developerium/react-big-calendar-forked-persian",
   "_id": "react-big-calendar@0.22.0"
 }
