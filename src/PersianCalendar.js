@@ -5,28 +5,16 @@ import 'moment/locale/fa';
 import { momentLocalizer } from './index'
 import Calendar from './Calendar';
 
-moment.locale('fa');
-moment.loadPersian({ usePersianDigits: true });
+// moment.locale('fa');
+// moment.loadPersian({ usePersianDigits: true });
 
 const localizer = momentLocalizer(moment);
-
 
 class PersianCalendar extends PureComponent {
   state = {
     view: 'month',
     viewDate: null,
   };
-
-  componentDidMount() {
-    this.onRangeChange({
-      start: moment()
-        .startOf('month')
-        .add(-5, 'days'),
-      end: moment()
-        .endOf('month')
-        .add(5, 'days'),
-    });
-  }
 
   onView = view => {
     this.setState({ view });
