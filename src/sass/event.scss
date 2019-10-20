@@ -12,7 +12,7 @@
   cursor: pointer;
   width: 100%;
   text-align: left;
-
+  outline: none;
   .rbc-slot-selecting & {
     cursor: inherit;
     pointer-events: none;
